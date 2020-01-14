@@ -18,7 +18,7 @@ def draw_window(win, apollo, arrow):
 def main_game(win, apollo, arrow):
     run = True
     while run:
-        clock.tick(100)
+        clock.tick(200)
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.KEYDOWN:
@@ -54,7 +54,7 @@ def main_game(win, apollo, arrow):
 
 
 test = Apollo.Apollo(400,400,5,100,100)
-arrow = Arrow.Arrow(300,300,5)
+arrow = Arrow.Arrow(300,300,2)
 
 main_game(win, test, arrow)
 

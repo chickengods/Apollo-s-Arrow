@@ -5,7 +5,7 @@ import os
 class Apollo:
 
 
-
+1
     def __init__(self,x,y,vel,health,armor):
         self.x = x
         self.y = y
