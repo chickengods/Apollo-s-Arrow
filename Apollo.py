@@ -9,7 +9,6 @@ class Apollo:
     faceLeft = "apolloLeft.png"
     faceRight = "apolloRight.png"
 
-1
     def __init__(self,x,y,vel,health,armor):
         self.x = x
         self.y = y
