@@ -54,7 +54,7 @@ def main_game(win, apollo, arrow):
 
 
 test = Apollo.Apollo(400,400,5,100,100)
-arrow = Arrow.Arrow(300,300,29)
+arrow = Arrow.Arrow(300,300,5)
 
 main_game(win, test, arrow)
 

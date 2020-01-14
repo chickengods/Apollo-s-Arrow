@@ -7,6 +7,7 @@ class Arrow:
         self.x = x
         self.y = y
         self.vel = vel
+        self.delay = 0
         self.img = pygame.image.load(os.path.join("imgs", "arrow.png"))
         self.mouse_position_queue = []
 
@@ -14,9 +15,13 @@ class Arrow:
         self.mouse_position_queue.append((x,y))
 
     def move(self):
-        position = self.mouse_position_queue.pop(0)
-        self.x = position[0]
-        self.y = position[1]
+        if self.delay == self.vel:
+            position = self.mouse_position_queue.pop(0)
+            self.x = position[0]
+            self.y = position[1]
+            self.delay = self.delay - self.vel
+        else:
+            self.delay = self.delay + 1
 
     def mouse_position_queue_empty(self):
         return len(self.mouse_position_queue) != 0
