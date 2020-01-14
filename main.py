@@ -1,7 +1,7 @@
 import pygame
 import Apollo
 import Arrow
-
+import Enemy
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
 
@@ -9,10 +9,9 @@ win = pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 
 clock = pygame.time.Clock()
 
-def draw_window(win, apollo, arrow):
-    win.fill((0,100,0))
-    apollo.draw(win)
-    arrow.draw(win)
+def draw_window(win, Apollo, arrow, Enemy):
+    Apollo.draw(win)
+    Enemy.draw(win)
     pygame.display.update()
 
 def main_game(win, apollo, arrow):
@@ -39,9 +38,7 @@ def main_game(win, apollo, arrow):
                     apollo.vel_change('a', -1)
                 if event.key == pygame.K_d:
                     apollo.vel_change('d', -1)
-            if event.type == pygame.MOUSEMOTION:
-                temp = pygame.mouse.get_pos()
-                arrow.add_to_mouse_queue(temp[0], temp[1])
+
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
@@ -49,10 +46,11 @@ def main_game(win, apollo, arrow):
         if arrow.mouse_position_queue_empty():
             arrow.move()
         apollo.move()
-        draw_window(win, apollo, arrow)
+        draw_window(win, apollo, arrow, mob)
+        mob.findApollo(apollo.x, apollo.y)
 
 
-
+mob = Enemy.Enemy(0, 0)
 test = Apollo.Apollo(400,400,5,100,100)
 arrow = Arrow.Arrow(300,300,2)
 

@@ -4,6 +4,10 @@ import os
 
 class Apollo:
 
+    faceUp = "apolloUp.png"
+    faceDown = "apolloDown.png"
+    faceLeft = "apolloLeft.png"
+    faceRight = "apolloRight.png"
 
 1
     def __init__(self,x,y,vel,health,armor):
@@ -14,16 +18,20 @@ class Apollo:
         self.vel = vel
         self.health = health
         self.armor = armor
-        self.img = pygame.image.load(os.path.join("imgs","linkImg.png"))
+        self.currImg = pygame.image.load(os.path.join("imgs","apolloLeft.png"))
 
     def vel_change(self, letter, num):
         if letter == 'w':
+            self.currImg = pygame.image.load(os.path.join("imgs","apolloUp.png"))
             self.y_vel = self.y_vel - self.vel * num
         elif letter == 's':
+            self.currImg = pygame.image.load(os.path.join("imgs", "apolloDown.png"))
             self.y_vel = self.y_vel + self.vel * num
         elif letter == 'a':
+            self.currImg = pygame.image.load(os.path.join("imgs", "apolloLeft.png"))
             self.x_vel = self.x_vel - self.vel * num
         elif letter == 'd':
+            self.currImg = pygame.image.load(os.path.join("imgs","apolloRight.png"))
             self.x_vel = self.x_vel + self.vel * num
 
     def vel_zero(self, num):
@@ -41,5 +49,5 @@ class Apollo:
 
 
     def draw(self, win):
-        win.blit(self.img, (self.x,self.y))
+        win.blit(self.currImg, (self.x,self.y))
 
