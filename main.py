@@ -10,8 +10,10 @@ win = pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 clock = pygame.time.Clock()
 
 def draw_window(win, Apollo, arrow, Enemy):
+    win.fill((0,100,0))
     Apollo.draw(win)
     Enemy.draw(win)
+    arrow.draw(win)
     pygame.display.update()
 
 def main_game(win, apollo, arrow):
@@ -38,6 +40,9 @@ def main_game(win, apollo, arrow):
                     apollo.vel_change('a', -1)
                 if event.key == pygame.K_d:
                     apollo.vel_change('d', -1)
+            if event.type == pygame.MOUSEMOTION:
+                temp = pygame.mouse.get_pos()
+                arrow.add_to_mouse_queue(temp[0], temp[1])
 
             if event.type == pygame.QUIT:
                 run = False
