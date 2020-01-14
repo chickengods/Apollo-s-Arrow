@@ -3,7 +3,8 @@ import os
 
 
 class Apollo:
-
+    WIN_WIDTH = 1600
+    WIN_HEIGHT = 800
     faceUp = "apolloUp.png"
     faceDown = "apolloDown.png"
     faceLeft = "apolloLeft.png"
@@ -30,6 +31,7 @@ class Apollo:
             self.currImg = pygame.image.load(os.path.join("imgs", "apolloLeft.png"))
             self.x_vel = self.x_vel - self.vel * num
         elif letter == 'd':
+            # where
             self.currImg = pygame.image.load(os.path.join("imgs","apolloRight.png"))
             self.x_vel = self.x_vel + self.vel * num
 
@@ -41,8 +43,14 @@ class Apollo:
 
 
     def move(self):
-        self.x = self.x + self.x_vel
-        self.y = self.y + self.y_vel
+        newX = self.x + self.x_vel
+        newY = self.y + self.y_vel
+        # new X and new Y are used to determine whether Apollo will be outside of the screen
+        # if he were to move with the given velocity, if so, it will not move him
+        if 0 < newX < (self.WIN_WIDTH - 30):
+            self.x = newX
+        if 0 < newY < (self.WIN_HEIGHT - 40):
+            self.y = newY
 
 
 

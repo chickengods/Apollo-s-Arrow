@@ -14,6 +14,7 @@ class Arrow:
     def add_to_mouse_queue(self,x,y):
         self.mouse_position_queue.append((x,y))
 
+
     def move(self):
         if self.delay == self.vel:
             position = self.mouse_position_queue.pop(0)
