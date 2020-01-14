@@ -1,3 +1,6 @@
+import pygame
+import os
+
 
 class Apollo:
 
@@ -9,6 +12,13 @@ class Apollo:
         self.vel = vel
         self.health = health
         self.armor = armor
+        self.img = pygame.image.load(os.path.join("imgs","linkImg.png"))
 
-    def draw(self):
+    def move(self, letter, vel):
+
+
+
+
+    def draw(self, win):
+        win.blit(self.img, (self.x,self.y))
 
