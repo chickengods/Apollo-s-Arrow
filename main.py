@@ -10,20 +10,25 @@ win = pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 
 clock = pygame.time.Clock()
 
-def draw_window(win, Apollo, arrow, Enemy, Enemy2):
+def draw_window(win, apollo, arrow, enemies):
     win.fill((0,100,0))
-    Apollo.draw(win)
-    Enemy.draw(win)
-    Enemy2.draw(win)
+    apollo.draw(win)
+    for enemy in enemies:
+        enemy.draw(win)
     arrow.draw(win)
     pygame.display.update()
 
-def main_game(win, apollo, arrow):
+def move_enemies (enemies, apollo):
+    for enemy in enemies:
+        enemy.find_apollo(apollo.x, apollo.y)
+        apollo.check_hit(enemy)
+
+def main_game(win, apollo, arrow, enemies):
     run = True
     while run:
         clock.tick(200)
         for event in pygame.event.get():
-            print(event)
+            #print(event)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     apollo.vel_change('w',1)
@@ -52,16 +57,17 @@ def main_game(win, apollo, arrow):
                 quit()
         if arrow.mouse_position_queue_empty():
             arrow.move()
+
+        # check_hit (apollo, enemies)
         apollo.move()
-        draw_window(win, apollo, arrow, mob, mob2)
-        mob.findApollo(apollo.x, apollo.y)
-        mob2.findApollo(apollo.x, apollo.y)
+        move_enemies(enemies, apollo)
+        draw_window(win, apollo, arrow, enemies)
 
 
 mob = Enemy.Enemy(0, 0)
 mob2 = Enemy.Enemy(700, 400)
 test = Apollo.Apollo(400,400,2,100,100)
 arrow = Arrow.Arrow(300,300,2)
-
-main_game(win, test, arrow)
+enemies = (mob, mob2)
+main_game(win, test, arrow, enemies)
 #boi

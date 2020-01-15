@@ -9,6 +9,7 @@ class Apollo:
     faceDown = "apolloDown.png"
     faceLeft = "apolloLeft.png"
     faceRight = "apolloRight.png"
+    gold = 0;
 
     def __init__(self,x,y,vel,health,armor):
         self.x = x
@@ -19,20 +20,24 @@ class Apollo:
         self.health = health
         self.armor = armor
         self.currImg = pygame.image.load(os.path.join("imgs","apolloLeft.png"))
+        self.hitbox = (self.x, self.y, 32, 52)
 
     def vel_change(self, letter, num):
         if letter == 'w':
-            self.currImg = pygame.image.load(os.path.join("imgs","apolloUp.png"))
+            if (num > 0):
+                self.currImg = pygame.image.load(os.path.join("imgs","apolloUp.png"))
             self.y_vel = self.y_vel - self.vel * num
         elif letter == 's':
-            self.currImg = pygame.image.load(os.path.join("imgs", "apolloDown.png"))
+            if (num > 0):
+                self.currImg = pygame.image.load(os.path.join("imgs", "apolloDown.png"))
             self.y_vel = self.y_vel + self.vel * num
         elif letter == 'a':
-            self.currImg = pygame.image.load(os.path.join("imgs", "apolloLeft.png"))
+            if (num > 0):
+                self.currImg = pygame.image.load(os.path.join("imgs", "apolloLeft.png"))
             self.x_vel = self.x_vel - self.vel * num
         elif letter == 'd':
-            # where
-            self.currImg = pygame.image.load(os.path.join("imgs","apolloRight.png"))
+            if (num > 0):
+                self.currImg = pygame.image.load(os.path.join("imgs","apolloRight.png"))
             self.x_vel = self.x_vel + self.vel * num
 
     def vel_zero(self, num):
@@ -40,6 +45,10 @@ class Apollo:
             self.y_vel = 0
         else:
             self.x_vel = 0
+
+
+    def give_gold (self, num):
+        gold += num
 
 
     def move(self):
@@ -51,10 +60,21 @@ class Apollo:
             self.x = newX
         if 0 < newY < (self.WIN_HEIGHT - 40):
             self.y = newY
+        self.hitbox = (self.x, self.y, 32, 52)
 
+    def check_hit (self, enemy):
+        # check if apollo within x bounds of enemy hitbox
+        if (enemy.x < self.x < (enemy.x + enemy.hitbox[2]) or enemy.x < (self.x + self.hitbox[2]) < (enemy.x + enemy.hitbox[2])):
+            # it is within bounds of the x axis
+            # check if within bounsd of y hitbox
+            if (enemy.y < self.y < (enemy.y + enemy.hitbox[3]) or enemy.y < (self.y + self.hitbox[3]) < (enemy.y + enemy.hitbox[3])):
+                self.x = 1000
+                self.y = 1000
 
 
 
     def draw(self, win):
         win.blit(self.currImg, (self.x,self.y))
+        # uncomment if you want to see hitbox
+        pygame.draw.rect(win, (255, 0,0), self.hitbox, 2)
 
