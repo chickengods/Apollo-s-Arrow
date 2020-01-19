@@ -52,10 +52,19 @@ class Arrow:
         distance = [(x - self.x), (y - self.y)]
 
         norm = math.sqrt(distance[0] ** 2 + distance[1]**2)
+
         if norm != 0:
-            direction = [(distance[0]/norm), (distance[1]/norm)]
-            self.x = x + direction[0] * self.vel
-            self.y = y + direction[1] * self.vel
+            norm_vector = [(distance[0]/norm), (distance[1]/norm)]
+            if norm_vector[0] != 0:
+                if x - self.x > 0:
+                    self.x = round(x + norm_vector[0] * self.vel)
+                else:
+                    self.x = -round(x + norm_vector[0] * self.vel)
+            if norm_vector[1] != 0:
+                if y - self.y > 0:
+                    self.y = round(y + norm_vector[1] * self.vel)
+                else:
+                    self.y = -round(y + norm_vector[1] * self.vel)
 
     def move2(self,x,y):
         if x > self.x:
